@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zozo Twitter Airdrop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f9;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .form-control:invalid {
+      border-color: #dc3545;
+    }
+    .success-msg {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4 text-center">Zozo Twitter Airdrop</h2>
+    <form action="submit.php" method="POST">
+      <div class="mb-3">
+        <label class="form-label">Are you following Zozo on Twitter (X)?</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="followed" value="yes" required>
+          <label class="form-check-label">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="followed" value="no" required>
+          <label class="form-check-label">No</label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Your X (Twitter) handle <small>(e.g., @YourName)</small></label>
+        <input type="text" class="form-control" name="twitter_id" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">How many times did you retweet the post?</label>
+        <input type="number" class="form-control" name="retweet_count" required min="1">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Your MetaMask wallet address <small>(If you don’t have MetaMask, enter a valid token receiving address using the official token contract: 0x7e79802Ed2a9A27b87b1fc96e8F5FD4765381a3e)</small></label>
+        <input type="text" class="form-control" name="wallet_address" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      Your information has been received. After validation by the Zozo team and confirmation of your retweets, tokens will be sent to your address within a few hours.
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector('form');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch('submit.php', {
+        method: 'POST',
+        body: new FormData(form)
+      }).then(() => {
+        form.reset();
+        successMsg.style.display = 'block';
+        setTimeout(() => successMsg.style.display = 'none', 15000);
+      }).catch(() => alert('Submission failed. Please try again.'));
+    });
+  </script>
+</body>
+</html>
